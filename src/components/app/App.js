@@ -1,4 +1,7 @@
 import React from "react";
+import "./App.css";
+
+import SearchBar from "../searchbar/SearchBar.js";
 
 class App extends React.Component {
   render() {
@@ -9,7 +12,7 @@ class App extends React.Component {
         </h1>
         <div className="App">
           {/**  Add a SearchBar component */}
-
+          <SearchBar />
           <div className="App-playlist">
             {/**  Add a SearchResults component */}
             {/**  Add a Playlist component */}

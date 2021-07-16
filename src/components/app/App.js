@@ -11,14 +11,9 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      searchResults: [
-        { name: "name1", artist: "artist1", album: "album1", id: "id1" },
-        { name: "name2", artist: "artist2", album: "album2", id: "id2" },
-      ],
+      searchResults: [],
       playlistName: "Pop playlist",
-      playlistTracks: [
-        { name: "name3", artist: "artist3", album: "album3", id: "id3" },
-      ],
+      playlistTracks: [],
     };
 
     this.addTrack = this.addTrack.bind(this);
@@ -57,9 +52,12 @@ class App extends React.Component {
     });
   }
 
-  search(searchTerm) {
-    const results = Spotify.search(searchTerm);
-    //this.setState({ searchResults: results });
+  async search(searchTerm) {
+    const results = await Spotify.search(searchTerm);
+
+    if (results) {
+      this.setState({ searchResults: results });
+    }
   }
 
   render() {

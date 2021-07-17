@@ -12,7 +12,7 @@ class App extends React.Component {
 
     this.state = {
       searchResults: [],
-      playlistName: "Pop playlist",
+      playlistName: "New Playlist",
       playlistTracks: [],
     };
 
@@ -47,14 +47,16 @@ class App extends React.Component {
   }
 
   savePlaylist() {
-    const trackURIs = this.playlistTracks.map((savedTrack) => {
+    const trackURIs = this.state.playlistTracks.map((savedTrack) => {
       return savedTrack.uri;
     });
+
+    Spotify.savePlaylist(this.state.playlistName, trackURIs);
+    this.setState({ playlistName: "New Playlist", playlistTracks: [] });
   }
 
   async search(searchTerm) {
     const results = await Spotify.search(searchTerm);
-
     if (results) {
       this.setState({ searchResults: results });
     }

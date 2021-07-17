@@ -55,6 +55,91 @@ const Spotify = {
       console.log(error);
     }
   },
+
+  async _getUserID() {
+    const access_token = accessToken;
+    const url = "https://api.spotify.com/v1/me";
+    const headers = {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    };
+    try {
+      const response = await fetch(url, headers);
+      if (response.ok) {
+        const jsonResponse = await response.json();
+        if (jsonResponse) {
+          return jsonResponse;
+        }
+      }
+      throw new Error("Request Failed!");
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  async _postPlaylistUsingID(user_id, name) {
+    const access_token = accessToken;
+    const url = `https://api.spotify.com/v1/users/${user_id}/playlists`;
+    const headers = {
+      headers: { Authorization: `Bearer ${access_token}` },
+      method: "POST",
+      body: JSON.stringify({ name: name }),
+    };
+    try {
+      const response = await fetch(url, headers);
+      if (response.ok) {
+        const jsonResponse = await response.json();
+        if (jsonResponse) {
+          return jsonResponse;
+        }
+      }
+      throw new Error("Request Failed!");
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  async _postTrackURIs(user_id, playlist_id, trackURIs) {
+    const access_token = accessToken;
+    //const url = `https://api.spotify.com/v1/users/${user_id}/playlists/${playlist_id}/tracks`;
+    const url = `https://api.spotify.com/v1/playlists/${playlist_id}/tracks`;
+    const headers = {
+      headers: { Authorization: `Bearer ${access_token}` },
+      method: "POST",
+      body: JSON.stringify({ uris: trackURIs }),
+    };
+    try {
+      const response = await fetch(url, headers);
+      if (response.ok) {
+        const jsonResponse = await response.json();
+        if (jsonResponse) {
+          console.log("COMPLETE");
+          return jsonResponse;
+        }
+      }
+      throw new Error("Request Failed!");
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  async savePlaylist(playlistName, trackURIs) {
+    if (playlistName && trackURIs) {
+      const getUser = await this._getUserID();
+      const playlist = await this._postPlaylistUsingID(
+        getUser.id,
+        playlistName
+      );
+
+      /** 
+      const result = await this._postTrackURIs(getUser.id, playlist.id, {});
+      return result;
+      */
+    } else {
+      return;
+    }
+  },
 };
 
 export default Spotify;

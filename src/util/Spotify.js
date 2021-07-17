@@ -78,7 +78,7 @@ const Spotify = {
     }
   },
 
-  async _postPlaylistUsingID(user_id, name) {
+  async _postPlaylist(user_id, name) {
     const access_token = accessToken;
     const url = `https://api.spotify.com/v1/users/${user_id}/playlists`;
     const headers = {
@@ -126,10 +126,7 @@ const Spotify = {
   async savePlaylist(playlistName, trackURIs) {
     if (playlistName && trackURIs) {
       const getUser = await this._getUserID();
-      const playlist = await this._postPlaylistUsingID(
-        getUser.id,
-        playlistName
-      );
+      const playlist = await this._postPlaylist(getUser.id, playlistName);
       const result = await this._postTrackURIs(
         getUser.id,
         playlist.id,

@@ -1,6 +1,6 @@
 const client_id = "f2c9a9a18b86424da49a0c02335908f2";
 
-const redirect_uri = "http://localhost:3000/";
+const redirect_uri = "https://rd_jammming.surge.sh";
 
 let accessToken;
 
@@ -130,7 +130,6 @@ const Spotify = {
         getUser.id,
         playlistName
       );
-
       const result = await this._postTrackURIs(
         getUser.id,
         playlist.id,

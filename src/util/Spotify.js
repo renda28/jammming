@@ -102,7 +102,7 @@ const Spotify = {
 
   async _postTrackURIs(user_id, playlist_id, trackURIs) {
     const access_token = accessToken;
-    //const url = `https://api.spotify.com/v1/users/${user_id}/playlists/${playlist_id}/tracks`;
+    //const oldUrl = `https://api.spotify.com/v1/users/${user_id}/playlists/${playlist_id}/tracks`;
     const url = `https://api.spotify.com/v1/playlists/${playlist_id}/tracks`;
     const headers = {
       headers: { Authorization: `Bearer ${access_token}` },
@@ -114,7 +114,6 @@ const Spotify = {
       if (response.ok) {
         const jsonResponse = await response.json();
         if (jsonResponse) {
-          console.log("COMPLETE");
           return jsonResponse;
         }
       }
@@ -132,10 +131,12 @@ const Spotify = {
         playlistName
       );
 
-      /** 
-      const result = await this._postTrackURIs(getUser.id, playlist.id, {});
+      const result = await this._postTrackURIs(
+        getUser.id,
+        playlist.id,
+        trackURIs
+      );
       return result;
-      */
     } else {
       return;
     }

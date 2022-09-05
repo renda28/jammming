@@ -25,7 +25,7 @@ A react web application that allows users to search the spotify library, create 
 - JavaScript
 - HTML
 - CSS
-- Spotify API
+- Spotify Api
 - Surge
 
 # Collaborators
